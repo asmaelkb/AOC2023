@@ -1,31 +1,27 @@
-
-sum = 0
-
 f = open("day1.txt")
 
 numbers = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen","twenty"]
 
+### PART 1
+
 def match_with(line):
     for i in range(len(numbers)):
         line = line.replace(numbers[i], str(i+1))
-
     return line
 
-# for line in f:
-#     liste = []
-#     new_line = match_with(line)
-#     for lettre in new_line:
-#         if (lettre.isdigit()):
-#             liste.append(lettre)
-#     print(line + " ---> " + new_line)
-#     sum += int(liste[0] + liste[len(liste) - 1])
-#     liste = []
+sum = 0
+for line in f:
+    liste = []
+    for lettre in line:
+        if (lettre.isdigit()):
+            liste.append(lettre)
+    sum += int(liste[0] + liste[len(liste) - 1])
 
-# print(sum)
+print(sum)
 
-# Last number : lire backward
-# On lit jusqu'à trouver un élément de numbers, et on le remplace
+### PART 2 
 
+# We read the line in order to find the first number (written in number or in letter)
 def find_first(line):
     mot = ""
     for element in line:
@@ -41,6 +37,7 @@ def find_first(line):
                     return lettre
         
 
+# We read the line backward in order to find the last number (written in number or in letter)
 def find_last(line):
     mot = ""
     
@@ -59,7 +56,7 @@ def find_last(line):
                 if (lettre.isdigit()):
                     return lettre
         
-
+sum = 0
 for line in f:
     first = find_first(line)
     last = find_last(line)
