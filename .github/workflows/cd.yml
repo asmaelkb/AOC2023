@@ -17,13 +17,3 @@ jobs:
             cd day1
         - run: |
             echo $(pwd)
-  
-  change-directory2:
-    name: change-directory
-    runs-on: ubuntu-latest
-
-    steps:
-        - run: |
-            cd ..
-        - run: |
-            echo $(pwd)
