@@ -14,6 +14,6 @@ jobs:
         - run: | 
             echo $(pwd)
         - run: |
-            cd day1
+            echo $(ls)
         - run: |
             echo $(pwd)
