@@ -11,14 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        - run: | 
-            echo $(ls ${{ github.workspace }})
-        - run: |
-            echo $(ls ${{ runner.workspace }})
-        - if: ${{ contains(github.workspace, 'README.md') }}
-          run: |
-            echo "TROP BIEN"
-        - if: ${{ contains(runner.workspace, 'README.md') }}
-          run: |
-            echo "TROP BIEN 2"
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - if: ${{ hashFiles('README.md') != '' }}
+          run: | 
+            echo YOUPI
+
 
