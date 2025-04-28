@@ -26,7 +26,10 @@ jobs:
 
         - name: Move to dist
           shell: bash
-          run: mv health version ./dist
+          run: | 
+            mv health version ./dist
+            echo $(ls ./dist)
+            echo $(ls)
 
 
 
