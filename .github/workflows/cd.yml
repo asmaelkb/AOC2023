@@ -12,9 +12,9 @@ jobs:
 
     steps:
         - run: | 
-            echo ${{ github.workspace }}
+            echo $(ls ${{ github.workspace }})
         - run: |
-            echo ${{ runner.workspace }}
+            echo $(ls ${{ runner.workspace }})
         - if: ${{ contains(github.workspace, 'README.md') }}
           run: |
             echo "TROP BIEN"
