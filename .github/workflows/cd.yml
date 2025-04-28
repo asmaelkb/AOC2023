@@ -12,8 +12,13 @@ jobs:
 
     steps:
         - run: | 
-            echo $(pwd)
+            echo ${{ github.workspace }}
         - run: |
-            echo $(ls)
-        - run: |
-            echo $(pwd)
+            echo ${{ runner.workspace }}
+        - if: ${{ contains(github.workspace, 'README.md') }}
+          run: |
+            echo "TROP BIEN"
+        - if: ${{ contains(runner.workspace, 'README.md') }}
+          run: |
+            echo "TROP BIEN 2"
+
