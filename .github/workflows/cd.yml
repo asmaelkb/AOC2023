@@ -13,8 +13,20 @@ jobs:
     steps:
         - name: Checkout code
           uses: actions/checkout@v4
-        - if: ${{ hashFiles('README.md') != '' }}
-          run: | 
-            echo YOUPI
+
+        - name: Create directory
+          shell: bash
+          run: mkdir .dist/
+        
+        - name: Create health and version files
+          uses: se-bb-admin/switchboard-runner/create-health-version-files@main
+          with:
+            package-name: engine-starter
+            package-version: 2.0.0
+
+        - name: Move to dist
+          shell: bash
+          run: mv health version ./dist
+
 
 

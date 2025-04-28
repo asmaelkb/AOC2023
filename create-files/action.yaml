@@ -1,0 +1,25 @@
+name: create-health-version-files
+description: 'Create health and version files once build is done'
+inputs:
+  package-name:
+    description: 'Package name'
+    type: string
+    required: true
+  package-version:
+    description: 'Package version'
+    type: string
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create version file
+      shell: bash
+      run: |
+        TIMESTAMP="$(date '+%Y-%m-%d %H-%M')"
+        VERSION_INFO=$(jq -n --arg name ${{ inputs.package-name }} --arg version ${{ inputs.package-version }} --arg timestamp ${TIMESTAMP} '{"name": $name,"version": $version,"build": $timestamp,"seacat": 54154}')
+        echo -E "${VERSION_INFO}" > version
+
+    - name: Create health file
+      shell: bash
+      run:  echo '{"status":"ok"}' > health
