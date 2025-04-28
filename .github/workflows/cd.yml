@@ -16,7 +16,7 @@ jobs:
 
         - name: Create directory
           shell: bash
-          run: mkdir .dist/
+          run: mkdir ./dist/
         
         - name: Create health and version files
           uses: asmaelkb/AOC2023/create-files@main
