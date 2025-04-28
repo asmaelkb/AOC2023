@@ -19,7 +19,7 @@ jobs:
           run: mkdir .dist/
         
         - name: Create health and version files
-          uses: asmaelkb/AOC2023/create-health-version-files@main
+          uses: asmaelkb/AOC2023/create-files@main
           with:
             package-name: engine-starter
             package-version: 2.0.0
