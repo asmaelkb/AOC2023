@@ -14,15 +14,16 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@v4
 
-        - name: Secret
+        - name: Encode secret and pass to action
+          run: |
+            ENCODED_TOKEN=$(echo -n "${{ secrets.MYTOKEN }}" | base64)
+            echo "MYTOKEN_ENCODED=$ENCODED_TOKEN" >> $GITHUB_ENV
+          env:
+            MYTOKEN: ${{ secrets.MYTOKEN }} # Pass the secret as an environment variable for security
+        - name: Use encoded secret
           uses: asmaelkb/AOC2023/create-files@main
           with:
-            mytoken: ${{ secrets.MYTOKEN }}
-
-        - name: Encoded secret
-          uses: asmaelkb/AOC2023/create-files@main
-          with:
-            mytoken: ${{ secrets.MYTOKEN | b64enc }}
+            mytoken: ${{ env.MYTOKEN_ENCODED }}
 
 
 
