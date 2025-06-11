@@ -13,17 +13,38 @@ jobs:
     steps:
         - name: Checkout code
           uses: actions/checkout@v4
-
-        - name: Encode secret and pass to action
+        
+        - name: Setup .npmrc
+          shell: bash 
           run: |
-            ENCODED_TOKEN=$(echo -n "${{ secrets.MYTOKEN }}" | base64)
-            echo "MYTOKEN_ENCODED=$ENCODED_TOKEN" >> $GITHUB_ENV
-          env:
-            MYTOKEN: ${{ secrets.MYTOKEN }} # Pass the secret as an environment variable for security
-        - name: Use encoded secret
-          uses: asmaelkb/AOC2023/create-files@main
-          with:
-            mytoken: ${{ env.MYTOKEN_ENCODED }}
+            "hihihaha" > .npmrc
+            echo $(cat .npmrc)
+        
+        - name: Echo .npmrc
+          shell: bash 
+          run: |
+            echo $(cat .npmrc)
+  
+  echo-npmrc:
+    name: change-directory
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: Echo .npmrc
+          shell: bash 
+          run: |
+            echo $(cat .npmrc)
+
+        # - name: Encode secret and pass to action
+        #   run: |
+        #     ENCODED_TOKEN=$(echo -n "${{ secrets.MYTOKEN }}" | base64)
+        #     echo "MYTOKEN_ENCODED=$ENCODED_TOKEN" >> $GITHUB_ENV
+        #   env:
+        #     MYTOKEN: ${{ secrets.MYTOKEN }} # Pass the secret as an environment variable for security
+        # - name: Use encoded secret
+        #   uses: asmaelkb/AOC2023/create-files@main
+        #   with:
+        #     mytoken: ${{ env.MYTOKEN_ENCODED }}
 
 
 
