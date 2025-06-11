@@ -17,7 +17,7 @@ jobs:
         - name: Setup .npmrc
           shell: bash 
           run: |
-            "hihihaha" > .npmrc
+            echo "hihihaha" > .npmrc
             echo $(cat .npmrc)
         
         - name: Echo .npmrc
