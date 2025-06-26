@@ -8,7 +8,7 @@ jobs:
 
   change-directory:
     name: change-directory
-    runs-on: ubuntu-latest
+    runs-on: asmae-runner
 
     steps:
         - name: Checkout code
@@ -27,7 +27,7 @@ jobs:
   
   echo-npmrc:
     name: change-directory
-    runs-on: ubuntu-latest
+    runs-on: asmae-runner
 
     steps:
         - name: Echo .npmrc
