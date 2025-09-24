@@ -10,6 +10,7 @@ jobs:
     secrets: inherit
 
   call-update-poeditor-matrix:
+    runs-on: ubuntu-latest
     steps:
       - name: Update POEditor Matrix
         shell: bash
