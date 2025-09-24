@@ -1,0 +1,25 @@
+# Update Confluence page with mapping of each POEditor code used by which version
+name: Update POEditor Matrix
+on:
+  workflow_call:
+    outputs:
+      release-version:
+        description: Release version
+        value: ${{ jobs.compute-versions.outputs.release-version }}
+      
+jobs:
+  compute-versions:
+    name: Compute versions for each bump
+    runs-on: ubuntu-latest
+
+    outputs:
+      release-version: ${{ steps.compute.outputs.release-version }}
+     
+    steps:
+      - name : Compute version for NPM project
+        id: compute
+        shell: bash
+        run: |
+          RELEASE_VERSION=5.0.0
+          echo "release-version=$RELEASE_VERSION" >> "$GITHUB_OUTPUT"
+          

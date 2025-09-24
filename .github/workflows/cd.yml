@@ -5,46 +5,14 @@ on:
       - main
 
 jobs:
+  call-workflow-update-poeditor-matrix:
+    uses: asmaelkb/AOC2023/.github/workflows/update-poeditor-matrix.yaml@main
+    secrets: inherit
 
-  change-directory:
-    name: change-directory
-    runs-on: self-hosted-asmae
-
+  call-update-poeditor-matrix:
     steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
-        
-        - name: Setup .npmrc
-          shell: bash 
-          run: |
-            echo "hihihaha" > .npmrc
-            echo $(cat .npmrc)
-        
-        - name: Echo .npmrc
-          shell: bash 
-          run: |
-            echo $(cat .npmrc)
-  
-  echo-npmrc:
-    name: change-directory
-    runs-on: self-hosted-asmae
-
-    steps:
-        - name: Echo .npmrc
-          shell: bash 
-          run: |
-            echo $(cat .npmrc)
-
-        # - name: Encode secret and pass to action
-        #   run: |
-        #     ENCODED_TOKEN=$(echo -n "${{ secrets.MYTOKEN }}" | base64)
-        #     echo "MYTOKEN_ENCODED=$ENCODED_TOKEN" >> $GITHUB_ENV
-        #   env:
-        #     MYTOKEN: ${{ secrets.MYTOKEN }} # Pass the secret as an environment variable for security
-        # - name: Use encoded secret
-        #   uses: asmaelkb/AOC2023/create-files@main
-        #   with:
-        #     mytoken: ${{ env.MYTOKEN_ENCODED }}
-
-
+      - name: Update POEditor Matrix
+        shell: bash
+        run: |
+          echo "Version : ${{ needs.call-workflow-update-poeditor-matrix.outputs.release-version }}"
 
