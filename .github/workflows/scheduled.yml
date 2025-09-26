@@ -1,0 +1,16 @@
+# Automatic workflow that builds and deploys demo on DATA
+# scheduled to be triggered twice a day
+name: CI Data
+
+on:
+  schedule:
+    - cron: "05 11 * * 1-5"
+
+jobs:
+  call-update-poeditor-matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update POEditor Matrix
+        shell: bash
+        run: |
+          echo "Version : 1"
