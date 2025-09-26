@@ -4,7 +4,7 @@ name: CI Data
 
 on:
   schedule:
-    - cron: '*/1 * * * *'  
+    - cron: '20 9 * * *'
 
 jobs:
   call-update-poeditor-matrix:
