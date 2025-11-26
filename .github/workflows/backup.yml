@@ -1,0 +1,24 @@
+name: Backup DB
+
+on:
+  workflow_call:
+    inputs:
+      target_db:
+        description: Target database to backup
+        type: string
+        required: true
+
+jobs:
+  backup:
+    environment: ${{ inputs.target_db }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name : Create dump and store it in S3
+        shell: bash
+        run: |
+          echo "${{ inputs.target_db }} : DUMP DONE"
+          echo "${{ vars.BACKUP_HOST }}"
+          echo "${{ vars.BACKUP_NAME }}"
+          echo "${{ vars.USER }}"
+          

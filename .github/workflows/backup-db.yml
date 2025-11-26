@@ -1,0 +1,21 @@
+# Dump all databases (from DEV or SQE environments) and store the dump in S3 storage
+name: Backup DB
+
+on:
+  schedule:
+    - cron: '00 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  call-backup-db:
+    strategy:
+      matrix:
+        environment:
+          - db-test3d
+          - db-test2d
+          - db-test1d
+
+    uses: asmaelkb/AOC2023/.github/workflows/backup.yml@main
+    with:
+      target_db: ${{ matrix.environment }}
+    secrets: inherit
