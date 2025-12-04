@@ -14,18 +14,18 @@ body:
     attributes:
       label: Scopes
       options:
-        - label: new630-es
-        - label: new630-fr
-        - label: cache
+        - label: scope1
+        - label: scope2
+        - label: scope3
         - label: search
         - label: billing
         - label: email
         - label: auth
         - label: reporting
-        - label: new630-be
-        - label: opt_vega-es
-        - label: opt_vega-fr
-        - label: opt_vega-be
+        - label: scope5
+        - label: scope6
+        - label: scope7
+        - label: scope8
     validations:
       required: true
 
