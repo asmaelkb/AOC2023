@@ -1,0 +1,36 @@
+
+name: Run scopes
+description: Sélectionne les scopes à exécuter
+title: "Run scopes"
+labels: ["run-scopes"]   # Sert à filtrer côté workflow
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Coche les scopes à exécuter ci-dessous. Tu peux en choisir plusieurs.
+
+  - type: checkboxes
+    id: scopes
+    attributes:
+      label: Scopes
+      options:
+        - label: new630-es
+        - label: new630-fr
+        - label: cache
+        - label: search
+        - label: billing
+        - label: email
+        - label: auth
+        - label: reporting
+        - label: new630-be
+        - label: opt_vega-es
+        - label: opt_vega-fr
+        - label: opt_vega-be
+    validations:
+      required: true
+
+  - type: input
+    id: requester
+    attributes:
+      label: Qui demande (optionnel)
+      description: Pour la traçabilité
