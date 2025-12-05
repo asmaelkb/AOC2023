@@ -1,0 +1,43 @@
+name: Release db
+
+on:
+  workflow_dispatch:
+    inputs:
+      new_630:
+        description: Selected languages for new630
+        type: string
+        required: false
+      vega:
+        description: Selected languages for vega
+        type: string
+        required: false
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name : Parse scopes and check they are correct
+        shell: bash
+        run: |
+          result=$(
+              echo '${{ toJson(github.event.inputs) }}' \
+              | jq -r '
+                [ to_entries[]
+                    | select(.value != null and .value != "")
+                      | . as $e
+                      | ($e.value
+                         | split(",")
+                         | map(gsub("^\\s+|\\s+$"; ""))   # trim espaces
+                         | map(select(. != ""))           # ignore fragments vides
+                         | .[]
+                        )
+                      | "\($e.key)\(.)"
+                ]
+                | join(",")
+              '
+          )
+
+          
+          echo "JSON event inputs : ${{ toJson(github.event.inputs) }}"
+          echo "Result : $result"
