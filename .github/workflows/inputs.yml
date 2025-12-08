@@ -40,3 +40,94 @@ jobs:
           
           echo "JSON event inputs : ${{ toJson(github.event.inputs) }}"
           echo "Result : $result"
+
+      - name: Create release DB Offer Scope PROD and publish on Artifactory
+        shell: bash
+        run: |
+
+            function error(){
+              echo "########################################################################"
+              echo "# Error : $*"
+              echo "########################################################################"
+              exit 1
+            }
+  
+            function check_command_ok() {
+              RC=$1
+              shift
+              if [ "${RC}" != "0" ]; then
+                error "$*"
+              fi
+            }
+  
+            TARGET_ENV=${{ vars.TARGET_ENV }}
+            SOURCE_URL=${{ vars.SOURCE_URL }}
+            DATABASE=${{ vars.DATABASE}}
+            CURRENT_DATE="$(date '+%Y-%m-%d')"
+            NUMBER_PATTERN='^[0-9]+$'
+            
+            # Get selected scopes
+            selected_scopes=${{ steps.scopes.outputs.selected_scopes }}
+
+            echo "Selected scopes : $selected_scopes"
+            
+            # Get all scope ID by rebuilded name
+            scopeByName=$(curl -X 'GET' \
+              "$SOURCE_URL/scopes" \
+              -H 'accept: */*' |
+              jq -r '.[] | { "name": "\(.appCode)-\(.regionCode)", "appCode": .appCode, "id": .id}' |
+              jq -s -c '.')
+
+            echo "ScopeByName : $scopeByName"
+          
+            # Replace * by all scopes
+            expanded_scopes=$(
+              jq -nc --argjson sel "$selected_scopes" --argjson sbn "$scopeByName" '
+                ($sbn | [.[].name]) as $names
+                | [ $sel[]
+                    | if (contains("*")) then
+                     ( . | sub("\\*+$"; "") ) as $p
+                     | ($names | map(select(startswith($p))) )[]
+                    else
+                      .
+                    end
+                  ]
+                | unique
+                | join(",")
+                '
+            )
+          
+            IFS=',' read -a scopes <<< "${expanded_scopes}"
+          
+            # Check if selected scopes are valid
+            names=$(echo "$scopeByName" | jq -r '[.[].name]')
+          
+            invalid_scopes=$(echo "$expanded_scopes" | jq -r --argjson names "$names" '
+                            [ .[] | select( ( . as $s | any($names[]; . == $s) | not ) ) ]
+                            ')
+            
+            if [[ "$invalid_scopes" != "[]" ]]; then
+              echo "Could not create the release. Invalid scopes have been given as input -> $invalid_scopes"
+              echo "$invalid_scopes" | jq -r '.[]'
+              exit 1
+            fi
+            
+            
+            # Compute file suffix
+            scopesCount=${#scopes[@]}
+            if [[ $scopesCount -eq 1 ]]; then
+              suffix=".${scopes[0]}"
+            elif [[ $scopesCount -gt 1 ]]; then
+              declare -a suffix_array
+              for scope in "${scopes[@]}"; do
+                appCode=$(echo "$scopeByName" | jq -r --arg scope "$scope" '.[] | select(.name=="\($scope)").appCode')
+                value="\<${appCode}\>"
+                if [ -n "$appCode" ] && ! [[ ${array[@]} =~ $value ]]; then
+                  suffix_array+=("$appCode")
+                fi
+                array=${suffix_array[*]}
+                suffix=".${array// /_}"
+              done
+            else
+              suffix=''
+            fi
