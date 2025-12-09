@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       new_630:
-        description: Selected languages for new630
+        description: Enter the languages to select for new630 (ex. fr,es), or * to select everything, or leave it empty to ignore this scope
         type: string
         required: false
       vega:
-        description: Selected languages for vega
+        description: Enter the languages to select for new630 (ex. fr,es), or * to select everything, or leave it empty to ignore this scope
         type: string
         required: false
 
