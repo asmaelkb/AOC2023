@@ -20,7 +20,7 @@ jobs:
       - name : Parse scopes and check they are correct
         shell: bash
         run: |
-          if [ ${{ toJson(github.event.inputs) }} == ""];then
+          if [ "${{ toJson(github.event.inputs) }}"" == "{}"];then
             echo "No scope has been provided. Could not create release."
             exit 1;
           else
