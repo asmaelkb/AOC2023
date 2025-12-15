@@ -5,6 +5,7 @@ on:
 
 jobs:
   call-backup-db:
+    runs-on: ubuntu-latest
     steps:
       - name : Echo var environments
         env: 
