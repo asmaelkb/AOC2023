@@ -1,0 +1,22 @@
+# Automatic workflow that builds and publishes an API
+# whenever commits are pushed to the main branch (CI)
+name: CI
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Choose the deployment environment
+        options:
+          - ci
+          - dev
+          - sqe
+
+jobs:
+  call-workflow-ci-backend:
+    uses: asmaelkb/AOC2023/.github/workflows/ci-backend.yml@main
+    secrets: inherit

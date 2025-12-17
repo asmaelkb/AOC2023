@@ -1,8 +1,6 @@
 name: CD
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   call-workflow-update-poeditor-matrix:
