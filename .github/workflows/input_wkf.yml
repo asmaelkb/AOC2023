@@ -1,0 +1,17 @@
+name: Input WORKFLOW
+on:
+  workflow_call:
+
+jobs: 
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    outputs:
+      version: ${{ steps.build.outputs.version }}
+
+    steps:
+      - name: Set version
+        id: build
+        run:|
+          echo "version=2.0.0-SNAPSHOT" >> "$GITHUB_OUTPUT"
