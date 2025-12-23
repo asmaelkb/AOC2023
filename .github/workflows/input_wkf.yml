@@ -4,7 +4,7 @@ on:
     outputs:
       version:
         description: Release version
-        value: ${{ jobs.compute-versions.outputs.version }}
+        value: ${{ jobs.build.outputs.version }}
 
 
 jobs: 
