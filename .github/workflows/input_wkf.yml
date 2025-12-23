@@ -1,6 +1,11 @@
 name: Input WORKFLOW
 on:
   workflow_call:
+    outputs:
+      version:
+        description: Release version
+        value: ${{ jobs.compute-versions.outputs.version }}
+
 
 jobs: 
   build:
