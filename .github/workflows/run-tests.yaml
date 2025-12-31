@@ -1,0 +1,29 @@
+# Workflow that executes the tests & display the results properly
+name: Reusable Run Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_branch:
+        description: Target branch where to execute tests
+        type: string
+        required: true
+      maven_cmd:
+        description: Maven command to execute tests
+        type: string
+        required: true
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+        with:
+          ref: ${{ inputs.target_branch }}
+
+      - name: Execute tests
+        shell: bash
+        run: ${{ inputs.maven_cmd }}
+
