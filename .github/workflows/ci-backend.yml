@@ -2,6 +2,10 @@ name: CI Back-end
 
 on:
   workflow_dispatch:
+    inputs:
+      app:
+        description: 'Application name to build'
+        required: true
 
 jobs:
   call-backup-db:
@@ -9,3 +13,32 @@ jobs:
     steps:
       - name : Build & Upload API
         uses: asmaelkb/AOC2023/build-backend@main
+
+      - name: Create files
+        run: |
+          echo "This is file 1 for ${{ github.event.inputs.app }}" > file1.txt
+          echo "This is file 2 for ${{ github.event.inputs.app }}" > file2.txt
+
+      - name: Upload API Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts-${{ github.event.inputs.app }}
+          path: |
+            ./file1.txt
+            ./file2.txt
+      
+      - name: Delete files
+        run: |
+          rm file1.txt
+          rm file2.txt
+      
+      - name: Restore API artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: backup-${{ github.event.inputs.app }}
+      
+      - name: List restored files
+        run: |
+          ls -la
+          cat file1.txt
+          cat file2.txt
