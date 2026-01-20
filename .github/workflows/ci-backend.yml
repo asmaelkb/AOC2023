@@ -35,7 +35,7 @@ jobs:
       - name: Restore API artifact
         uses: actions/download-artifact@v7
         with:
-          name: backup-${{ github.event.inputs.app }}
+          name: artifacts-${{ github.event.inputs.app }}
       
       - name: List restored files
         run: |
