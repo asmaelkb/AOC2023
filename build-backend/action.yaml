@@ -2,8 +2,8 @@ name: build-backend
 description: Builds a Java backend project and generate the associated Docker image & Helm chart, which can be cached. It also runs a Sonar scan (except for Renovate PRs).
 
 inputs:
-  jasypt-encryptor-password:
-    description: Jasypt encryptor
+  app-name:
+    description: Application name
     required: true
 
 runs:
@@ -12,8 +12,10 @@ runs:
   steps:
     - name: Build API
       shell: bash
-      env:
-        JASYPT_ENCRYPTOR_PASSWORD: ${{ inputs.jasypt-encryptor-password }}
       run: |
-        echo "JASYPT_ENCRYPTOR_PASSWORD is set to: ${{ inputs.jasypt-encryptor-password }}"
-        JASYPT_ENCRYPTOR_PASSWORD=${{ inputs.jasypt-encryptor-password }}
+        echo "Build API ${{ inputs.app-name }} completed !"
+    
+    - name: Upload API
+      uses: asmaelkb/AOC2023/upload-backend@main
+      with:
+        app-name: ${{ inputs.app-name }}

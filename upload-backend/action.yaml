@@ -1,0 +1,17 @@
+name: upload-backend
+description: Upload docker image & chart
+
+inputs:
+  app-name:
+    description: Application name
+    required: true
+
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Upload API
+      shell: bash
+      run: |
+        echo "API ${{ inputs.app-name }} uploaded !"

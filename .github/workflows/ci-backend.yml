@@ -1,27 +1,11 @@
-# Workflow used to validate, build and publishes a Java backend package to the Non-Prod Azure Registry,
-# followed by a DEV deployment
-name: ci-backend
+name: CI Back-end
 
 on:
-  workflow_call:
-
-concurrency:
-  group: ${{ github.workflow }}
+  workflow_dispatch:
 
 jobs:
-
-  build:
-    name: Build
+  call-backup-db:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
-        with:
-          fetch-depth: 0
-
-      - name: Build
+      - name : Build & Upload API
         uses: asmaelkb/AOC2023/build-backend@main
-        id: build
-        with:
-          jasypt-encryptor-password: ${{ secrets.JASYPT_ENCRYPTOR_PASSWORD }}
