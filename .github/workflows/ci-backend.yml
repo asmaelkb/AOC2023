@@ -20,7 +20,7 @@ jobs:
           echo "This is file 2 for ${{ github.event.inputs.app }}" > file2.txt
 
       - name: Upload API Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v6
         with:
           name: artifacts-${{ github.event.inputs.app }}
           path: |
@@ -33,7 +33,7 @@ jobs:
           rm file2.txt
       
       - name: Restore API artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v7
         with:
           name: backup-${{ github.event.inputs.app }}
       
