@@ -1,3 +1,5 @@
+name: Manual Trigger Example
+
 on:
   workflow_dispatch:
     inputs:
