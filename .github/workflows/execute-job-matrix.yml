@@ -1,0 +1,14 @@
+name: Execute Job Matrix
+
+on: 
+  workflow_dispatch:
+    inputs:
+      app:
+        description: 'Application name to build'
+        required: true
+
+job:
+  execute-job-matrix:
+    uses: asmaelkb/AOC2023/.github/workflows/job-matrix.yml@main
+    with:
+      app: ${{ inputs.app }}
