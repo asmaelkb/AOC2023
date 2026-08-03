@@ -7,7 +7,7 @@ on:
         description: 'Application name to build'
         required: true
 
-job:
+jobs:
   execute-job-matrix:
     uses: asmaelkb/AOC2023/.github/workflows/job-matrix.yml@main
     with:

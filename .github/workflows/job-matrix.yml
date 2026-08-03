@@ -6,6 +6,7 @@ on:
     inputs:
       app:
         description: 'Application name to build'
+        type: string
         required: true
 
 jobs:
