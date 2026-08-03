@@ -14,3 +14,7 @@ runs:
       shell: bash
       run: |
         echo "Build API ${{ inputs.app-name }} completed !"
+    - name : Workflow called from
+      shell: bash
+      run: |
+        echo "Workflow that called the action is ${{ github.workflow }}"
