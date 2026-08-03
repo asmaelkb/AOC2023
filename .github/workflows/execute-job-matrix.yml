@@ -12,3 +12,4 @@ jobs:
     uses: asmaelkb/AOC2023/.github/workflows/job-matrix.yml@main
     with:
       app: ${{ inputs.app }}
+      environment: 'dev'
