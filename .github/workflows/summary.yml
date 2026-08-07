@@ -45,7 +45,7 @@ jobs:
         run: |
           {
             echo "Folder publication: \ `assets/translation/swb-editor/3.40\` |"
-            echo "**POEditor files uploaded**: \`${{ needs.build-npm.outputs.poeditor_files }}\` |"
+            echo "**POEditor files uploaded**: \`${{ needs.summary.outputs.summary }}\` |"
           } >> $GITHUB_STEP_SUMMARY
 
 
