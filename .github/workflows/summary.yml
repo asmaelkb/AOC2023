@@ -7,22 +7,23 @@ on:
 jobs: 
   summary:
     runs-on: ubuntu-latest
+
+    outputs:
+      summary: ${{ steps.summary.outputs.summary }}
     steps:
       - name: Summary
+        id: summary
         run: |
-          {
-            echo "## 🗄️ Release Summary"
-            echo "| Property | Value |"
-            echo "|---|---|"
-            echo "| Message | hello, world! |"
-          } >> $GITHUB_STEP_SUMMARY
+          SUMMARY="{
+            echo 'POEditor files have been published under assets/translation/swb-editor/3.41 : '
+            echo 'es.txt, fr.txt, ja.txt, pt.txt, ru.txt, zh.txt'
+            }"
           
+          echo "summary=$SUMMARY" >> $GITHUB_OUTPUT
   
   summary-matrix:
+    needs: summary
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        app: [editor, engine]
     steps:
       - name: Summary Matrix
         run: |
@@ -30,6 +31,11 @@ jobs:
             echo "## 🗄️ Release Summary"
             echo "| Property | Value |"
             echo "|---|---|"
-            echo "| Message | hello ${{ matrix.app }}! |"
+            echo "| Message | hello ! |"
           } >> $GITHUB_STEP_SUMMARY
+
+          ${{
+            needs.summary.outputs.summary
+          }} >> $GITHUB_STEP_SUMMARY
+
           
