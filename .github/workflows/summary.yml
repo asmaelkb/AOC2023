@@ -11,15 +11,22 @@ jobs:
     outputs:
       summary: ${{ steps.summary.outputs.summary }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Summary
         id: summary
         run: |
-          SUMMARY=$(
-            echo -n 'POEditor files have been published under assets/translation/swb-editor/3.41 : '
-            echo 'es.txt, fr.txt, ja.txt, pt.txt, ru.txt, zh.txt'
-            )
+          UPLOADED_FILES=()
 
-          echo "summary=$SUMMARY" >> $GITHUB_OUTPUT
+          for directory in $(ls -d */); do
+            if [ -f "$directory/summary.txt" ]; then
+              UPLOADED_FILES+=("$directory/summary.txt")
+            fi
+          done
+
+          FILES_LIST=$(IFS=', '; echo "${UPLOADED_FILES[*]}")
+          echo "summary=$FILES_LIST" >> "$GITHUB_OUTPUT"
   
   summary-matrix:
     needs: summary
@@ -34,8 +41,12 @@ jobs:
             echo "| Message | hello ! |"
           } >> $GITHUB_STEP_SUMMARY
 
-          ${{
-            needs.summary.outputs.summary
-          }} >> $GITHUB_STEP_SUMMARY
+      - name: Display Summary
+        run: |
+          {
+            echo "Folder publication: \ `assets/translation/swb-editor/3.40\` |"
+            echo "**POEditor files uploaded**: \`${{ needs.build-npm.outputs.poeditor_files }}\` |"
+          } >> $GITHUB_STEP_SUMMARY
+
 
           
