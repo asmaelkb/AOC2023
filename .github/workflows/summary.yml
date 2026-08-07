@@ -1,0 +1,35 @@
+name: Summary
+
+on:
+  workflow_dispatch:
+
+
+jobs: 
+  summary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Summary
+        run: |
+          {
+            echo "## 🗄️ Release Summary"
+            echo "| Property | Value |"
+            echo "|---|---|"
+            echo "| Message | hello, world! |"
+          } >> $GITHUB_STEP_SUMMARY
+          
+  
+  summary-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [editor, engine]
+    steps:
+      - name: Summary Matrix
+        run: |
+          {
+            echo "## 🗄️ Release Summary"
+            echo "| Property | Value |"
+            echo "|---|---|"
+            echo "| Message | hello ${{ matrix.app }}! |"
+          } >> $GITHUB_STEP_SUMMARY
+          
