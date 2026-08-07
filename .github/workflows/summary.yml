@@ -19,13 +19,12 @@ jobs:
         run: |
           UPLOADED_FILES=()
 
-          for directory in $(ls -d */); do
-            if [ -f "$directory/summary.txt" ]; then
-              UPLOADED_FILES+=("$directory/summary.txt")
-            fi
+          for directory in $(ls); do
+            UPLOADED_FILES+=("$directory")
           done
 
           FILES_LIST=$(IFS=', '; echo "${UPLOADED_FILES[*]}")
+          echo $FILES_LIST
           echo "summary=$FILES_LIST" >> "$GITHUB_OUTPUT"
   
   summary-matrix:
