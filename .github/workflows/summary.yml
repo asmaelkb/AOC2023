@@ -15,7 +15,7 @@ jobs:
         id: summary
         run: |
           SUMMARY=$(
-            echo 'POEditor files have been published under assets/translation/swb-editor/3.41 : '
+            echo -n 'POEditor files have been published under assets/translation/swb-editor/3.41 : '
             echo 'es.txt, fr.txt, ja.txt, pt.txt, ru.txt, zh.txt'
             )
 
