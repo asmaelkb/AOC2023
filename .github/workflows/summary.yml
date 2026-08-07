@@ -43,7 +43,7 @@ jobs:
       - name: Display Summary
         run: |
           {
-            echo "Folder publication: \ `assets/translation/swb-editor/3.40\` |"
+            echo "Folder publication: \`assets/translation/swb-editor/3.40\` |"
             echo "**POEditor files uploaded**: \`${{ needs.summary.outputs.summary }}\` |"
           } >> $GITHUB_STEP_SUMMARY
 
