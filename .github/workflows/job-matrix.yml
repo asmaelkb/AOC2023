@@ -3,6 +3,11 @@ name: Build single API, or Engine/Editor API
 
 on:
   workflow_call:
+    inputs:
+      environment:
+        description: 'Environment to build'
+        required: true
+        type: string
 
 jobs:
   build-editor-engine-api:
@@ -14,12 +19,13 @@ jobs:
     strategy:
       matrix:
         app: [editor, engine]
-        env: [dev, data]
+        env: ${{ inputs.environment == 'dev' && fromJSON('["dev", "dev-data"]') || fromJSON(format('["{0}"]', inputs.environment)) }}
+
 
     steps:
-      - name : Verify environment
+      - name : ${{ matrix.app }}-${{ matrix.env }}
         run: |
-          echo "Environment is ${{ vars.RESULT }}"
+          echo "Environment is ${{ matrix.env }}"
           echo "Application is ${{ matrix.app }}"
 
 

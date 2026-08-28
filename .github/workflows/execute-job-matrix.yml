@@ -6,3 +6,5 @@ on:
 jobs:
   execute-job-matrix:
     uses: asmaelkb/AOC2023/.github/workflows/job-matrix.yml@main
+    with:
+      environment: dev
