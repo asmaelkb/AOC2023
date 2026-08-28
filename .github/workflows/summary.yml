@@ -45,7 +45,7 @@ jobs:
           {
             echo "## 📦 POEditor files publication"
             echo
-            echo "All below POEditor files have been published on S3 to folder \`assets/translation/swb-editor/3.40/\`"
+            echo "All below POEditor files have been published on S3 to folder \`assets/translation/swb-editor/${{ needs.compute-versions.outputs.release-branch-version }}/\`"
             echo "| File |"
             echo "|------|"
 
