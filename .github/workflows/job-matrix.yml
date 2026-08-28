@@ -14,31 +14,16 @@ on:
         required: true
 
 jobs:
-  build-api:
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
-
-    if: github.event.repository.name == 'switchboardengine'
-    steps:
-      - name : Verify environment
-        run: |
-          echo "Environment is ${{ vars.RESULT }}"
-          echo "Application is ${{ inputs.app }}"
-
-      - name : Build & Upload API
-        uses: asmaelkb/AOC2023/build-backend@main
-        with:
-          app-name: ${{ inputs.app }}
-
   build-editor-engine-api:
     runs-on: ubuntu-latest
-    environment: ${{ matrix.app }}-${{ inputs.environment }}
+    environment: ${{ matrix.app }}-${{ matrix.env }}
 
     if: github.event_name == 'workflow_dispatch'
 
     strategy:
       matrix:
         app: [editor, engine]
+        env: [${{ inputs.environment }}, data]
 
     steps:
       - name : Verify environment
@@ -46,9 +31,5 @@ jobs:
           echo "Environment is ${{ vars.RESULT }}"
           echo "Application is ${{ matrix.app }}"
 
-      - name : Build & Upload API
-        uses: asmaelkb/AOC2023/build-backend@main
-        with:
-          app-name: ${{ matrix.app }}
 
 
