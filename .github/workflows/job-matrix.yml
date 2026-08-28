@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         app: [editor, engine]
-        env: [${{ inputs.environment }}, data]
+        env: [dev, data]
 
     steps:
       - name : Verify environment
