@@ -4,10 +4,6 @@ name: Build single API, or Engine/Editor API
 on:
   workflow_call:
     inputs:
-      app:
-        description: 'Application name to build'
-        type: string
-        required: true
       environment:
         description: 'Environment to build'
         type: string
