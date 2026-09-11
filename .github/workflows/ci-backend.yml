@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name : Build & Upload API
-        uses: asmaelkb/AOC2023/build-backend@main
+        uses: asmaelkb/AOC2023/MIC/build-backend@main
+        with:
+          app-name: ${{ inputs.app }}
 
       - name: Create files
         run: |
