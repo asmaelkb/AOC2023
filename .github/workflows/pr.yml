@@ -1,0 +1,22 @@
+name: CI Back-end
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+jobs:
+  call-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build API
+        shell: bash
+        env:
+          IS_DATA_PR: ${{ contains(github.event.pull_request.labels.*.name, 'data') }}
+        run: |          
+          # Run Editor Data tests for data PRs
+          if [[ "$IS_DATA_PR" == "true" ]]; then
+            echo "== Data PR: execution of Editor Data tests =="
+          fi
