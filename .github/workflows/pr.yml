@@ -6,6 +6,8 @@ on:
     branches:
       - main
 
+
+#where
 jobs:
   call-pr:
     runs-on: ubuntu-latest
@@ -17,6 +19,7 @@ jobs:
           IS_DATA_PR: ${{ contains(github.event.pull_request.labels.*.name, 'data') }}
         run: |          
           # Run Editor Data tests for data PRs
+          echo "IS_DATA_PR: $IS_DATA_PR"
           if [[ "$IS_DATA_PR" == "true" ]]; then
             echo "== Data PR: execution of Editor Data tests =="
           fi
